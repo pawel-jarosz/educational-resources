@@ -1,15 +1,26 @@
 use std::io::BufReader;
 use std::io::BufRead;
 use std::fs::File;
-use std::path::Path;
 
+use marie_toolbox::asm::assembly_helpers::AssemblerParser;
+use marie_toolbox::asm::object_content_factory::ObjectContentFactory;
 use super::Context;
 
+
 fn assembly(input: &File, output_filename: &String) {
-    let mut buffer_reader = BufReader::new(input);
+    let buffer_reader = BufReader::new(input);
+    let mut parser = AssemblerParser::new();
+
+    info!("Start pre-parsing: prepare map of memory sections");
+
+    let mut object_content_factory = ObjectContentFactory::new();
+
     for line in buffer_reader.lines() {
-        let unpacked = line.unwrap();
-        println!("{}", unpacked); 
+        let result = parser.handle_line(line.unwrap().as_str());
+        if result != assembly_helpers::HandleResult::Empty {
+            object_content_factory.push_instruction(result);
+        }
+        debug!("Parsed: {:?}", result)
     }  
 }
 
