@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.0)
+cmake_minimum_required(VERSION 3.19)
 project(rpncalc)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -17,4 +17,9 @@ message(STATUS "Boost includes: ${Boost_INCLUDE_DIRS}")
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
 add_subdirectory(dummy_implementation)
+add_subdirectory(dynamic_polymorphism)
