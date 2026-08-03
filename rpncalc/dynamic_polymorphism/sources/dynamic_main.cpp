@@ -6,11 +6,10 @@
 #include <rpn/calculator.hpp>
 
 void build_strategy_selector(rpn::ComputationStrategySelector& selector) {
-    selector
-    .register_strategy(std::make_unique<rpn::PlusStrategy>())
-    .register_strategy(std::make_unique<rpn::MinusStrategy>())
-    .register_strategy(std::make_unique<rpn::MultStrategy>())
-    .register_strategy(std::make_unique<rpn::DivStrategy>());
+    selector.build<rpn::PlusStrategy,
+    rpn::MinusStrategy, 
+    rpn::MultStrategy, 
+    rpn::DivStrategy>();
 }
 
 int main(int argc, char* argv[]) {
@@ -19,7 +18,10 @@ int main(int argc, char* argv[]) {
     rpn::DoubleStackStdWrapper rpn_stack;
     rpn::Tokenizer tokenizer;
     rpn::ComputationStrategySelector selector;
-    build_strategy_selector(selector);
+    selector.build<rpn::PlusStrategy,
+                   rpn::MinusStrategy, 
+                   rpn::MultStrategy, 
+                   rpn::DivStrategy>();
 
     rpn::Calculator calculator{selector, rpn_stack};
 

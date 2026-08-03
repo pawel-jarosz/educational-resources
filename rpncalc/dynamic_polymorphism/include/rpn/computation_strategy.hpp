@@ -50,6 +50,12 @@ namespace rpn {
         ComputationStrategySelector() = default;
         ComputationStrategySelector& register_strategy(StartegyPtr strategy);
         [[nodiscard]] AbstractComputationStrategy& get_strategy(const std::string& key) const;
+
+        template<typename... Ts>
+        ComputationStrategySelector& build() {
+            (this->register_strategy(std::make_unique<Ts>()), ...);
+            return *this;
+        }
     private:
         std::map<std::string, ComputationStrategySelector::StartegyPtr> startegies_;
     };
