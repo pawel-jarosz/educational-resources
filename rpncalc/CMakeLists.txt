@@ -3,7 +3,7 @@ project(rpncalc)
 
 enable_testing()
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wpedantic -Werror")
 
 find_package(Boost REQUIRED)
@@ -25,3 +25,4 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 add_subdirectory(dummy_implementation)
 add_subdirectory(dynamic_polymorphism)
+add_subdirectory(static_polymorphism)
